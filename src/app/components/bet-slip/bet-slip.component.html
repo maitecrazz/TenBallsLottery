@@ -1,0 +1,27 @@
+<span>{{ballService.selectionList | json}}</span>
+        <div *ngIf="error != undefined && error != ''">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">x{{ballService.selectionList.length}}</span>
+                </div>
+                <input [(ngModel)]="amount" type="number" class="form-control border border-danger form-error" 
+                    placeholder="Enter amount to bet" aria-label="Enter amount to bet" 
+                    aria-describedby="basic-addon1" min="5" required/>
+            </div>
+        </div>
+        <div *ngIf="!(error != undefined && error != '')" >
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">x{{ballService.selectionList.length}}</span>
+                </div>
+                <input [(ngModel)]="amount" type="number" class="form-control" 
+                    placeholder="Enter amount to bet" aria-label="Enter amount to bet" 
+                    aria-describedby="basic-addon1" min="5" required/>
+            </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="error != undefined && error != ''">
+                {{error}}
+        </div>
+    <button *ngIf="!(ballService.selectionList.length > 0)" class="btn btn-primary disabled">Place bet</button>
+    <button *ngIf="(ballService.selectionList.length > 0)" (click)="bet()" class="btn btn-primary">Place bet</button>
+
