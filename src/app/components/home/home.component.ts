@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Ball } from '../../model/ball';
+import { BallService } from '../../services/ball.service';
 
 @Component({
   selector: 'home',
@@ -7,9 +9,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+  }
 
   ngOnInit() {
+    
   }
   
 

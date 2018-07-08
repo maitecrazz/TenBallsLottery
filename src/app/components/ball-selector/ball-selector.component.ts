@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BallService } from '../../services/ball.service';
+import { Ball } from '../../model/ball';
 
 @Component({
   selector: 'ball-selector',
@@ -7,16 +8,16 @@ import { BallService } from '../../services/ball.service';
   styleUrls: ['./ball-selector.component.css']
 })
 export class BallSelectorComponent implements OnInit {
-
-  @Output() selectNumber : EventEmitter<number> = new EventEmitter<number>();
+  private selectionList : Ball[];
 
   constructor(private ballService : BallService) { }
 
-  ngOnInit() {  
+  ngOnInit() {              
+    this.ballService.getObservableBalls().subscribe(list => this.selectionList = list);
   }
 
-  select(num : number){
-    this.ballService.add(num);
+  select(ball : Ball){
+    this.ballService.add(ball);
   }
 
   clear(){

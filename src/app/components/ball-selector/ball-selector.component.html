@@ -1,11 +1,13 @@
-<div class="container">
+<div class="container-fluid" >
   <div class="row justify-content-md-center">
-    <button class="btn btn-primary m-1" (click)="select(1)">1</button>
-    <button class="btn btn-primary m-1" (click)="select(2)">2</button>
-    <button class="btn btn-primary m-1" (click)="select(3)">3</button>
-    <button class="btn btn-primary m-1" (click)="select(4)">4</button>
+    <div *ngFor="let ball of selectionList, let i=index">
+      <img *ngIf="!ball.isAlreadySelected" id="nonSelected" src="../../../assets/images/balls/Ball{{i+1}}.png" 
+        class="nonSelectedBall border border-dark rounded-circle" alt="Ball {{ball.num}}" (click)="select(ball)"/>
+      <img *ngIf="ball.isAlreadySelected" id="selected" src="../../../assets/images/balls/Ball{{i+1}}.png" 
+        class="selectedBall border border-dark rounded-circle" alt="Ball {{ball.num}}" (click)="select(ball)"/>
+    </div>
   </div> 
   <div class="row justify-content-md-center">
-    <button class="btn btn-link" (click)="clear()">Clear selection</button>
+    <button class="btn btn-link btn-lg" (click)="clear()">Clear selection</button>
   </div>
 </div>

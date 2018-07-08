@@ -1,10 +1,11 @@
-<div class="container">
-  <div class="row align-items-center">
-    <div class="col card p-5 m-5">
-      <ball-selector class="d-flex justify-content-center"></ball-selector>
+<div class="container-fluid">
+  <div style="margin-top: 8%" class="row"></div>
+  <div style="margin-top: 8%" class="row">
+    <div class="d-flex align-self-center col card semi-transparent black-border p-4 mr-5 ml-1">
+      <router-outlet></router-outlet>
     </div>
-    <div class="col card p-5 m-5">
+    <div class="d-flex align-self-center col card semi-transparent black-border p-4 mr-5 ml-1">
       <bet-slip></bet-slip>
     </div>
-  </div>
+  <div class="row mt-8"></div>
 </div>

@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BallService } from '../../services/ball.service';
 import 'rxjs/add/observable/interval';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from "rxjs";
+import { Router } from '@angular/router';
+import { Ball } from '../../model/ball';
+
 
 @Component({
   selector: 'app-winner',
@@ -9,46 +13,70 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./winner.component.css']
 })
 export class WinnerComponent implements OnInit {
-  countdown(arg0: any): any {
-    throw new Error("Method not implemented.");
-  }
 
   private winner : number;
   private youWon : boolean;
-  public $counter: Observable<number>;
-  stoped: any;
-  diff: number;
-  future: number;
-  subscription: any;
-  message: any;
+  private numbersQuantity : number;
+  private selectionList : Ball[] = [];
+  private betAmount : number;
 
-  constructor(private ballService : BallService) { }
+  // Countdown attributes
+
+  // private millisecondsLeft : number = 3000;
+  // private $counter : Subscription = new Subscription();
+
+  constructor(private ballService : BallService,
+    private router : Router) { }
 
   ngOnInit() {
-    this.countDown();
-    this.getWinner();
+    this.ballService.getObservableSelectedBallsNumber().subscribe(num => {
+      if(num == undefined || num <= 0){
+        this.router.navigate([""]);
+      }
+      else{
+        this.ballService.getObservableBalls().subscribe(list => {
+          this.selectionList = list;
+          this.betAmount = this.ballService.getAmount();
+          this.winner = this.ballService.getWinner();
+          this.getWinner();
+          // this.countDown();
+      });
+      }
+    });
   }
 
   getWinner(){
-    this.winner = this.ballService.generateWinnerNumber();
     this.youWon = false;
-    for(let num of this.ballService.selectionList){
-      if(this.winner === num){
-        this.youWon = true;
-        break;
+      for(let ball of this.selectionList){
+        if(ball.isAlreadySelected && this.winner === ball.num){
+          this.youWon = true;
+          break;
+        }
       }
-    }
   }
 
-  countDown(){
-    var secondsLeft = 3000;
-      
-    this.$counter = Observable.interval(1000).pipe((x) => { 
-        Math.round(Math.floor(secondsLeft) / 1000);   
-        return x;
-    });
-    
-    this.subscription = this.$counter.subscribe((x) => this.message = this.countdown(this.diff));
+  restartGame(){
+    this.ballService.clear();
+    this.router.navigate(['']);
   }
+
+  // countDown(){      
+  //   this.$counter = Observable.interval(1000)
+  //     .subscribe(passedTime => {
+  //       if(this.millisecondsLeft - passedTime > 1000){
+  //         this.millisecondsLeft -= 1000;
+  //       }  
+  //       else{
+  //         this.millisecondsLeft -= 1000;
+  //         this.$counter.unsubscribe();
+  //         this.getWinner();
+  //       }
+  //   });
+  // 
+  // }
+
+  // ngOnDestroy(){
+  //   this.$counter.unsubscribe();
+  // }
 
 }

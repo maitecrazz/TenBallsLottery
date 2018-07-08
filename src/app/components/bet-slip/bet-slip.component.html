@@ -1,27 +1,29 @@
-<span>{{ballService.selectionList | json}}</span>
-        <div *ngIf="error != undefined && error != ''">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">x{{ballService.selectionList.length}}</span>
-                </div>
-                <input [(ngModel)]="amount" type="number" class="form-control border border-danger form-error" 
-                    placeholder="Enter amount to bet" aria-label="Enter amount to bet" 
-                    aria-describedby="basic-addon1" min="5" required/>
+<div class="container text-center">
+        <div class="row justify-content-md-center">
+            <div *ngFor="let ball of selectedBalls, let i=index">
+                <img *ngIf="!(ball.num == 0)" class="rounded-circle preselectedBall m-1"  alt="Ball {{ball.num}}" src="../../../assets/images/balls/Ball{{ball.num}}.png"/>
+                <img *ngIf="ball.num == 0" class="rounded-circle preselectedBall m-1" alt="preselectedBall {{i+1}}" src="../../../assets/images/preselectedBall.png"/>
             </div>
+            
+    </div>
+    <div class="input-group mt-3 mb-3 input-group-lg">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">x{{selectedNumbersQuantity}}</span>
         </div>
-        <div *ngIf="!(error != undefined && error != '')" >
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">x{{ballService.selectionList.length}}</span>
-                </div>
-                <input [(ngModel)]="amount" type="number" class="form-control" 
-                    placeholder="Enter amount to bet" aria-label="Enter amount to bet" 
-                    aria-describedby="basic-addon1" min="5" required/>
-            </div>
-        </div>
-        <div class="alert alert-danger" *ngIf="error != undefined && error != ''">
+            <input #amountInput [(ngModel)]="amount" type="number" class="form-control " 
+                placeholder="Enter amount to bet" aria-label="Enter amount to bet" 
+                aria-describedby="basic-addon1" min="5" (ngModelChange)="calculateError()" required/>
+    </div>
+    <span style="font-size: 24px">Total: {{selectedNumbersQuantity*amount}} €</span>
+    <div class="pt-2 mt-2">
+        <div class="alert alert-danger btn-lg" *ngIf="amount == undefined || (amount*selectedNumbersQuantity < 5 && selectedNumbersQuantity > 0)">
                 {{error}}
         </div>
-    <button *ngIf="!(ballService.selectionList.length > 0)" class="btn btn-primary disabled">Place bet</button>
-    <button *ngIf="(ballService.selectionList.length > 0)" (click)="bet()" class="btn btn-primary">Place bet</button>
+        <div *ngIf="winnerGenerated || amount == undefined || selectedNumbersQuantity <= 0 || selectedNumbersQuantity*amount < 5">
+            <button class="btn btn-primary btn-block btn-lg disabled">Place bet</button>
+        </div>
+        <button *ngIf="!(winnerGenerated || amount == undefined || selectedNumbersQuantity <= 0 || selectedNumbersQuantity*amount < 5)" 
+            (click)="bet()" class="btn btn-primary btn-block btn-lg">Place bet</button>
+    </div>     
+    
 
