@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BetSlipComponent } from './bet-slip.component';
+import { BallService } from '../../services/ball.service';
+import { FormsModule } from '../../../../node_modules/@angular/forms';
+import { RouterTestingModule } from '../../../../node_modules/@angular/router/testing';
 
 describe('BetSlipComponent', () => {
   let component: BetSlipComponent;
@@ -8,7 +11,14 @@ describe('BetSlipComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BetSlipComponent ]
+      imports: [
+        RouterTestingModule,
+        FormsModule
+      ],
+      declarations: [ BetSlipComponent ],
+      providers: [
+        BallService
+      ]
     })
     .compileComponents();
   }));

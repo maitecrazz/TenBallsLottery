@@ -1,10 +1,10 @@
 <div class="container-fluid" >
   <div class="row justify-content-md-center">
-    <div *ngFor="let ball of selectionList, let i=index">
+    <div id="ballsFor" *ngFor="let ball of selectionList, let i=index">
       <img *ngIf="!ball.isAlreadySelected" id="nonSelected" src="../../../assets/images/balls/Ball{{i+1}}.png" 
-        class="nonSelectedBall border border-dark rounded-circle" alt="Ball {{ball.num}}" (click)="select(ball)"/>
-      <img *ngIf="ball.isAlreadySelected" id="selected" src="../../../assets/images/balls/Ball{{i+1}}.png" 
-        class="selectedBall border border-dark rounded-circle" alt="Ball {{ball.num}}" (click)="select(ball)"/>
+        class="nonSelectedBall border border-dark rounded-circle" alt="{{ball.num}}" (click)="select(ball)"/>
+      <img name="selectedBall" *ngIf="ball.isAlreadySelected" id="selected" src="../../../assets/images/balls/Ball{{i+1}}.png" 
+        class="selectedBall border border-dark rounded-circle" alt="{{ball.num}}" (click)="select(ball)"/>
     </div>
   </div> 
   <div class="row justify-content-md-center">

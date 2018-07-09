@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Ball } from '../model/ball';
+import { BallSelectorComponent } from '../components/ball-selector/ball-selector.component';
 
 @Injectable()
 export class BallService {
