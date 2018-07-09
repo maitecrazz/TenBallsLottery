@@ -55,7 +55,7 @@ export class BallService {
     this.observableWinner.next(this.winner);
   }
 
-  add(ball : Ball){            
+  add(ball : Ball){                
       if(this.balls[ball.num-1].isAlreadySelected){
         this.selectedBalls.splice(this.selectedBalls.indexOf(ball),1);
         let _ball = ball;

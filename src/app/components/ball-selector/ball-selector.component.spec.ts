@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core
 import { BallSelectorComponent } from './ball-selector.component';
 import { BallService } from '../../services/ball.service';
 import { By } from '../../../../node_modules/@angular/platform-browser';
-import { Subscription } from '../../../../node_modules/rxjs';
+import { Subscription, Observable } from '../../../../node_modules/rxjs';
 import { debuglog } from 'util';
 
 describe('BallSelectorComponent', () => {
@@ -51,23 +51,21 @@ describe('BallSelectorComponent', () => {
   
   it('should call the select method', async(() => {
     let service = TestBed.get(BallService);
-    spyOn(component, 'select');
+    spyOn(service, 'add').and.callThrough();
+    spyOn(component, 'select').and.callThrough();
     let img : HTMLElement = document.getElementsByTagName("img")[0];
-    console.log("first image", img);
     // Click on first img element
-    console.log("servicio antes", service);
-
     img.click();
-    // tick();
-    console.log("servicio despues", service);
-
-
     expect(component.select).toHaveBeenCalledTimes(1);
-    console.log("ruebaa", component.selectionList);
-    
-    console.log("second image", document.getElementsByTagName("img"));
+    console.log("LISTA",component.selectionList);
+
+    let selectedImg : HTMLElement = document.getElementsByTagName("img")[0];
+
+    console.log("second image",selectedImg);
     console.log("attribute", img.getAttribute('alt'));
-    // expect(img.getAttribute('alt')).toEqual(selectedImg.getAttribute('alt'));
+    console.log("attribute 2", selectedImg.getAttribute('alt'));
+
+    expect(img.getAttribute('alt')).toEqual(selectedImg.getAttribute('alt'));
   }))
 
 
