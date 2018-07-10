@@ -49,24 +49,39 @@ describe('BallSelectorComponent', () => {
     expect(document.getElementsByTagName("img").length == service.maxBetNumbers)
   }))
   
-  it('should call the select method', async(() => {
+  it('should call the select method to select', async(() => {
+    fixture.autoDetectChanges(true);
     let service = TestBed.get(BallService);
     spyOn(service, 'add').and.callThrough();
     spyOn(component, 'select').and.callThrough();
-    let img : HTMLElement = document.getElementsByTagName("img")[0];
+    let img : HTMLElement = fixture.debugElement.query(By.css("img")).nativeElement;
+
     // Click on first img element
     img.click();
     expect(component.select).toHaveBeenCalledTimes(1);
-    console.log("LISTA",component.selectionList);
 
-    let selectedImg : HTMLElement = document.getElementsByTagName("img")[0];
-
-    console.log("second image",selectedImg);
-    console.log("attribute", img.getAttribute('alt'));
-    console.log("attribute 2", selectedImg.getAttribute('alt'));
+    // Check: Class image change
+    let selectedImg = document.getElementsByClassName("selectedBall")[0];
 
     expect(img.getAttribute('alt')).toEqual(selectedImg.getAttribute('alt'));
   }))
 
+  it('should call the select method to deselect', async(() => {
+    fixture.autoDetectChanges(true);
+    let service = TestBed.get(BallService);
+    spyOn(service, 'add').and.callThrough();
+    spyOn(component, 'select').and.callThrough();
+    service.add(component.selectionList[0]);
+    let img : HTMLElement = (<HTMLElement[]><any>document.getElementsByClassName("selectedBall"))[0];
+
+    // Click on first selected ball
+    img.click();
+    expect(component.select).toHaveBeenCalledTimes(1);
+
+    // Check: Class image change
+    let nonSelectedImg = document.getElementsByClassName("nonSelectedBall")[0];
+
+    expect(img.getAttribute('alt')).toEqual(nonSelectedImg.getAttribute('alt'));
+  }))
 
 });
