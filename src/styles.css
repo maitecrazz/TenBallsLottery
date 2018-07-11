@@ -9,7 +9,7 @@
     background-image: url('assets/images/billar-background.png');
     background-position: center;
     background-repeat: repeat;
-    z-index:1;
+    z-index:-1;
 }
 
 .semi-transparent{
@@ -28,4 +28,3 @@
 .btn-link:hover{
     color: rgb(0, 40, 92);
 }
-
