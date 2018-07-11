@@ -12,10 +12,6 @@ import { FormsModule } from '../../../../node_modules/@angular/forms';
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  let ballComponent : BallSelectorComponent;
-  let ballFixture: ComponentFixture<BallSelectorComponent>;
-  let betComponent : BetSlipComponent;
-  let betFixture: ComponentFixture<BetSlipComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -43,16 +39,6 @@ describe('HomeComponent', () => {
   });
 
   it('should create', () => {
-    const ballFixture = TestBed.createComponent(BallSelectorComponent);
-    const ballComponent = ballFixture.componentInstance;
-    const betFixture = TestBed.createComponent(BetSlipComponent);
-    const betComponent = betFixture.componentInstance;
-    const winnerFixture = TestBed.createComponent(WinnerComponent);
-    const winnerComponent = winnerFixture.componentInstance;
-
     expect(component).toBeTruthy();
-    expect(ballComponent).toBeTruthy();
-    expect(betComponent).toBeTruthy();
-    expect(winnerComponent).toBeTruthy();
   });
 });

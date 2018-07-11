@@ -5,8 +5,10 @@ import { BallSelectorComponent } from '../components/ball-selector/ball-selector
 
 @Injectable()
 export class BallService {
+  // General game configuration variables
   public readonly possibleNumbers : number = 10;
   public readonly maxBetNumbers : number = 8;
+  public readonly minimumAmountBet : number = 5;
 
   //Lista de bolas posibles calculada con el parámetro "possibleNumbers" (para ball-selector)
   private balls : Ball[] = [];
@@ -34,7 +36,7 @@ export class BallService {
 
     this.refresh();
 
-    return this.balls;
+    return this.balls.slice();
   }
 
   getObservableBalls() : Observable<Ball[]> {
@@ -56,7 +58,7 @@ export class BallService {
   }
 
   add(ball : Ball){                
-      if(this.balls[ball.num-1].isAlreadySelected){
+      if(this.balls[ball.num-1].isAlreadySelected || this.selectedBalls.includes(ball)){
         this.selectedBalls.splice(this.selectedBalls.indexOf(ball),1);
         let _ball = ball;
         _ball.isAlreadySelected = false;        
@@ -85,7 +87,8 @@ export class BallService {
   }
 
   addAmount(amount : number){
-    this.betAmount = amount;
+    if(amount >= this.minimumAmountBet)
+      this.betAmount = amount;
   }
 
   getAmount() : number{

@@ -60,6 +60,10 @@ export class WinnerComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  getSelectionList() : Ball[]{
+    return this.selectionList;
+  }
+
   // countDown(){      
   //   this.$counter = Observable.interval(1000)
   //     .subscribe(passedTime => {
@@ -78,5 +82,10 @@ export class WinnerComponent implements OnInit {
   // ngOnDestroy(){
   //   this.$counter.unsubscribe();
   // }
+
+  // Set method to component test
+  setWinnerNumber(num : number){
+    this.youWon = true;
+  }
 
 }
