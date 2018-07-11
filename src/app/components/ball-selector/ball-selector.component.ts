@@ -9,11 +9,11 @@ import { debuglog } from 'util';
   styleUrls: ['./ball-selector.component.css']
 })
 export class BallSelectorComponent implements OnInit {
-  selectionList : Ball[];
+  private selectionList : Ball[];
 
   constructor(private ballService : BallService) { }
 
-  ngOnInit() {              
+  ngOnInit() {  
     this.ballService.getObservableBalls().subscribe(list => this.selectionList = list);
   }
 
@@ -23,6 +23,10 @@ export class BallSelectorComponent implements OnInit {
 
   clear(){
     this.ballService.clear();
+  }
+
+  getSelectionList() : Ball[] {
+    return this.selectionList;
   }
 
 }

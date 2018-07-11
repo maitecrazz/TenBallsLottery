@@ -5,13 +5,13 @@
   <!-- <div class="col justify-content-md-center" *ngIf="!(millisecondsLeft != undefined && millisecondsLeft > 0)"> -->
     <h2>Result: {{winner}}</h2>
     <div>
-      <div *ngIf="youWon">
+      <div id="youWon" *ngIf="youWon">
           <h3 style="color: rgb(0, 65, 0)">Congratulations, you won!</h3>
           <div style="font-size: 24px">You bet: {{betAmount}} €</div>
           <div style="font-size: 24px">You won: {{betAmount * 1.5}} €</div>
           <div style="font-size: 24px">Profit: {{betAmount * 1.5 - betAmount}} €</div>
       </div>
-      <div *ngIf="!youWon">
+      <div id="youLost" *ngIf="!youWon">
         <div class="p-2 m-2">
           <h3 style="color: rgba(194, 3, 3, 0.651)">You lost... </h3>
           <h3 style="color: rgba(194, 3, 3, 0.651)">Better luck next time!</h3>

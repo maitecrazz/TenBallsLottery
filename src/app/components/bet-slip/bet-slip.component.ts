@@ -12,12 +12,9 @@ import { BehaviorSubject } from 'rxjs';
 })
 
 export class BetSlipComponent implements OnInit {
-
-
-
   @ViewChild('amountInput', {read: ElementRef}) input: ElementRef;
-  private readonly error : string = "Minimum bet is 5€";
-  private amount : number = 5;
+  readonly error : string = "Minimum bet is 5€";
+  private amount : number = this.ballService.minimumAmountBet;
   private selectedNumbersQuantity : number = 0;
   private selectedBalls : Ball[] = [];
   private winnerGenerated : boolean = false;
@@ -50,7 +47,8 @@ export class BetSlipComponent implements OnInit {
   }
 
   private calculateError(){
-    if(!this.amount || (this.amount*this.selectedNumbersQuantity < 5 && this.selectedNumbersQuantity > 0)){
+    if(!this.amount || (this.amount*this.selectedNumbersQuantity < this.ballService.minimumAmountBet 
+        && this.selectedNumbersQuantity > 0)){
       this.renderer.addClass(this.input.nativeElement, "border");
       this.renderer.addClass(this.input.nativeElement, "border-danger");
       this.renderer.addClass(this.input.nativeElement, "form-error")
@@ -60,20 +58,6 @@ export class BetSlipComponent implements OnInit {
       this.renderer.removeClass(this.input.nativeElement, "border-danger");
       this.renderer.removeClass(this.input.nativeElement, "form-error")
     }
-    // var numberQt = 0;
-    // this.ballService.getObservableNumber().subscribe(num => {
-    //   numberQt = num;
-    //   if(this.amount > 0 || (this.amount*numberQt < 5 && numberQt > 0))
-    //   this.renderer.addClass(this.input, "border border-danger form-error");
-    // else
-    //   this.renderer.removeClass(this.input, "border border-danger form-error");
-    // });
-    
-    // if(!this.amount || (this.amount*this.selectedNumbersQuantity < 5 && this.selectedNumbersQuantity > 0))
-    //   this.renderer.addClass(this.input, "border border-danger form-error");
-    // else
-    //   this.renderer.removeClass(this.input, "border border-danger form-error");
-
   }
 
   bet(){
@@ -84,5 +68,13 @@ export class BetSlipComponent implements OnInit {
         this.ballService.addAmount(this.amount * this.selectedNumbersQuantity);
         this.router.navigateByUrl("winner", { skipLocationChange: true });
       }
+    }
+
+    getSelectedBalls() : Ball[]{
+      return this.selectedBalls;
+    }
+
+    getselectedNumbersQuantity(){
+      return this.selectedNumbersQuantity;
     }
 }

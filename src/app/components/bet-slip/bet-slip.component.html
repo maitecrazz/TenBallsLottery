@@ -1,28 +1,28 @@
 <div class="container text-center">
         <div class="row justify-content-md-center">
             <div *ngFor="let ball of selectedBalls, let i=index">
-                <img *ngIf="!(ball.num == 0)" class="rounded-circle preselectedBall m-1"  alt="Ball {{ball.num}}" src="../../../assets/images/balls/Ball{{ball.num}}.png"/>
-                <img *ngIf="ball.num == 0" class="rounded-circle preselectedBall m-1" alt="preselectedBall {{i+1}}" src="../../../assets/images/preselectedBall.png"/>
-            </div>
-            
+                <img id="selectedBetBall" *ngIf="!(ball.num == 0)" class="rounded-circle preselectedBall m-1"  alt="ball.num" src="../../../assets/images/balls/Ball{{ball.num}}.png"/>
+                <img id="nonBelectedBetBall" *ngIf="ball.num == 0" class="rounded-circle preselectedBall m-1" alt="0" src="../../../assets/images/preselectedBall.png"/>
+            </div> 
     </div>
     <div class="input-group mt-3 mb-3 input-group-lg">
         <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">x{{selectedNumbersQuantity}}</span>
+            <span class="input-group-text" id="label">x{{selectedNumbersQuantity}}</span>
         </div>
             <input #amountInput [(ngModel)]="amount" type="number" class="form-control " 
                 placeholder="Enter amount to bet" aria-label="Enter amount to bet" 
-                aria-describedby="basic-addon1" min="5" (ngModelChange)="calculateError()" required/>
+                aria-describedby="label" min="{{ballService.minimunAmountBet}}" (ngModelChange)="calculateError()" required/>
     </div>
-    <span style="font-size: 24px">Total: {{selectedNumbersQuantity*amount}} €</span>
+    <span id="total" style="font-size: 24px">Total: {{selectedNumbersQuantity*amount}} €</span>
     <div class="pt-2 mt-2">
-        <div class="alert alert-danger btn-lg" *ngIf="amount == undefined || (amount*selectedNumbersQuantity < 5 && selectedNumbersQuantity > 0)">
+        <div id="error" class="alert alert-danger btn-lg" *ngIf="amount == undefined || 
+            (amount*selectedNumbersQuantity < ballService.minimunAmountBet && selectedNumbersQuantity > 0)">
                 {{error}}
         </div>
-        <div *ngIf="winnerGenerated || amount == undefined || selectedNumbersQuantity <= 0 || selectedNumbersQuantity*amount < 5">
+        <div id="disabledBetButton" *ngIf="winnerGenerated || amount == undefined || selectedNumbersQuantity <= 0 || selectedNumbersQuantity*amount < ballService.minimunAmountBet">
             <button class="btn btn-primary btn-block btn-lg disabled">Place bet</button>
         </div>
-        <button *ngIf="!(winnerGenerated || amount == undefined || selectedNumbersQuantity <= 0 || selectedNumbersQuantity*amount < 5)" 
+        <button id="enabledBetButton" *ngIf="!(winnerGenerated || amount == undefined || selectedNumbersQuantity <= 0 || selectedNumbersQuantity*amount < ballService.minimunAmountBet)" 
             (click)="bet()" class="btn btn-primary btn-block btn-lg">Place bet</button>
     </div>     
     

@@ -6,12 +6,9 @@ import { BallSelectorComponent } from './components/ball-selector/ball-selector.
 import { BetSlipComponent } from './components/bet-slip/bet-slip.component';
 import { WinnerComponent } from './components/winner/winner.component';
 import { FormsModule } from '../../node_modules/@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
 import { Router } from '../../node_modules/@angular/router';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { BallService } from './services/ball.service';
-import { By } from '../../node_modules/@angular/platform-browser';
-import { NO_ERRORS_SCHEMA } from '../../node_modules/@angular/core';
 
 describe('AppComponent', () => {
   let router: Router;
@@ -50,13 +47,10 @@ describe('AppComponent', () => {
     expect(location.path()).toBe(""); 
   }));
 
-  it('should create the app and home', async(() => {
+  it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    const homeFixture = TestBed.createComponent(HomeComponent);
-    const homeComponent = homeFixture.debugElement.componentInstance;
-
+    
     expect(app).toBeTruthy();
-    expect(homeComponent).toBeTruthy();
   }));
 });
