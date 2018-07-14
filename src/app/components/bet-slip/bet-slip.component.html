@@ -11,12 +11,12 @@
         </div>
             <input #amountInput [(ngModel)]="amount" type="number" class="form-control " 
                 placeholder="Enter amount to bet" aria-label="Enter amount to bet" 
-                aria-describedby="label" min="{{ballService.minimunAmountBet}}" (ngModelChange)="calculateError()" required/>
+                aria-describedby="label" min="{{ballService.minimumAmountBet}}" (ngModelChange)="calculateError()" required/>
     </div>
     <span id="total" style="font-size: 24px">Total: {{selectedNumbersQuantity*amount}} €</span>
     <div class="pt-2 mt-2">
         <div id="error" class="alert alert-danger btn-lg" *ngIf="amount == undefined || 
-            (amount*selectedNumbersQuantity < ballService.minimunAmountBet && selectedNumbersQuantity > 0)">
+            (amount*selectedNumbersQuantity < ballService.minimumAmountBet && selectedNumbersQuantity > 0)">
                 {{error}}
         </div>
         <div id="disabledBetButton" *ngIf="winnerGenerated || amount == undefined || selectedNumbersQuantity <= 0 || selectedNumbersQuantity*amount < ballService.minimunAmountBet">
